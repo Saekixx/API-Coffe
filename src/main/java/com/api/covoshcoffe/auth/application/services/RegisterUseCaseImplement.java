@@ -5,7 +5,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.api.covoshcoffe.auth.application.dto.RegisterCommand;
 import com.api.covoshcoffe.auth.application.ports.in.RegisterUseCase;
-import com.api.covoshcoffe.auth.domain.model.AuthProveedor;
 import com.api.covoshcoffe.auth.domain.model.Rol;
 import com.api.covoshcoffe.auth.domain.model.Usuario;
 import com.api.covoshcoffe.auth.domain.ports.out.PasswordEncoderPort;
@@ -39,15 +38,7 @@ public class RegisterUseCaseImplement implements RegisterUseCase {
         String encodedPassword = passwordEncoder.encriptar(request.password());
 
         // Crear un nuevo usuario
-        Usuario usuario = new Usuario(
-                request.fullname(),
-                request.email(),
-                encodedPassword,
-                AuthProveedor.LOCAL, // proveedorAuth
-                null, // proveedorId
-                0, // puntos
-                Rol.CLIENTE // rol
-        );
+        Usuario usuario = Usuario.crearNuevoLocal(request.fullname(), request.email(), encodedPassword);
 
         // Guardar el usuario en la base de datos
         return usuarioRepository.save(usuario);

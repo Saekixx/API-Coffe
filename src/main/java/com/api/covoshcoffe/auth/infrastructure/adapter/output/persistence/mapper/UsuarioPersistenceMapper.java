@@ -18,6 +18,7 @@ public class UsuarioPersistenceMapper {
                 entity.getProveedorAuth(),
                 entity.getProveedorId(),
                 entity.getPuntos(),
+                entity.isActive(),
                 entity.getRol(),
                 entity.getCreatedAt(),
                 entity.getUpdatedAt());
@@ -34,6 +35,7 @@ public class UsuarioPersistenceMapper {
                 domain.proveedorAuth(),
                 domain.proveedorId(),
                 domain.puntos(),
+                domain.isActive(),
                 domain.rol(),
                 domain.createdAt(),
                 domain.updatedAt());

@@ -38,6 +38,7 @@ create table productos (
     descripcion text,
     precio_base decimal(8, 2) not null,
     imagen_url varchar(255),
+    is_active boolean default true,
     foreign key (categoria_id) references categorias(id)
 );
 

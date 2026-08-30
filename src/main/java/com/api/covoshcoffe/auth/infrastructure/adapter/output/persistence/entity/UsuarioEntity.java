@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "usuarios")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor 
 public class UsuarioEntity {
 
     @Id
@@ -42,6 +42,9 @@ public class UsuarioEntity {
 
     @Column
     private Integer puntos;
+
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
 
     @Enumerated(EnumType.STRING)
     private Rol rol;

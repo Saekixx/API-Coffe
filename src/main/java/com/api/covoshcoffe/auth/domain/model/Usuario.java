@@ -10,21 +10,22 @@ public record Usuario(
         AuthProveedor proveedorAuth,
         String proveedorId,
         Integer puntos,
+        boolean isActive,
         Rol rol,
         LocalDateTime createdAt,
         LocalDateTime updatedAt) {
 
-    public Usuario(String fullname, String email, String password, AuthProveedor proveedorAuth, String proveedorId,
-            Integer puntos, Rol rol) {
-        this(
+    public static Usuario crearNuevoLocal(String fullname, String email, String password) {
+        return new Usuario(
                 null,
                 fullname,
                 email,
                 password,
-                proveedorAuth,
-                proveedorId,
-                puntos,
-                rol,
+                AuthProveedor.LOCAL,
+                null,
+                0,
+                true,
+                Rol.CLIENTE,
                 null,
                 null);
     }
