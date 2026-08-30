@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.api.covoshcoffe.auth.infrastructure.adapter.security.JwtAuthenticationFilter;
+import com.api.covoshcoffe.auth.infrastructure.adapter.output.security.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity

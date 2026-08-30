@@ -1,4 +1,4 @@
-package com.api.covoshcoffe.auth.infrastructure.adapter.security;
+package com.api.covoshcoffe.auth.infrastructure.adapter.output.security;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.api.covoshcoffe.auth.domain.ports.TokenProviderPort;
+import com.api.covoshcoffe.auth.domain.ports.out.TokenProviderPort;
 
 import org.springframework.util.StringUtils;
 import jakarta.servlet.FilterChain;

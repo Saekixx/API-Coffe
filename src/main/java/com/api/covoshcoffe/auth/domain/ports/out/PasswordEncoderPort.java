@@ -1,4 +1,4 @@
-package com.api.covoshcoffe.auth.domain.ports;
+package com.api.covoshcoffe.auth.domain.ports.out;
 
 public interface PasswordEncoderPort {
     // Encritpar una contraseña

@@ -3,7 +3,7 @@ package com.api.covoshcoffe.auth.domain.model;
 import java.time.LocalDateTime;
 
 public record Usuario(
-        String id,
+        Integer id,
         String fullname,
         String email,
         String password,

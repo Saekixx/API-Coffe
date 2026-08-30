@@ -1,4 +1,4 @@
-package com.api.covoshcoffe.auth.domain.ports;
+package com.api.covoshcoffe.auth.domain.ports.out;
 
 import java.util.Optional;
 

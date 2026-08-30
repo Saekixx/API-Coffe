@@ -1,4 +1,4 @@
-package com.api.covoshcoffe.auth.infrastructure.adapter.security;
+package com.api.covoshcoffe.auth.infrastructure.adapter.output.security;
 
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.api.covoshcoffe.auth.domain.model.Usuario;
-import com.api.covoshcoffe.auth.domain.ports.TokenProviderPort;
+import com.api.covoshcoffe.auth.domain.ports.out.TokenProviderPort;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

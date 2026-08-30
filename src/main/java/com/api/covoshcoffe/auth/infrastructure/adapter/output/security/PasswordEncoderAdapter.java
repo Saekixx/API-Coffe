@@ -1,9 +1,9 @@
-package com.api.covoshcoffe.auth.infrastructure.adapter.security;
+package com.api.covoshcoffe.auth.infrastructure.adapter.output.security;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.api.covoshcoffe.auth.domain.ports.PasswordEncoderPort;
+import com.api.covoshcoffe.auth.domain.ports.out.PasswordEncoderPort;
 
 @Component
 public class PasswordEncoderAdapter implements PasswordEncoderPort {

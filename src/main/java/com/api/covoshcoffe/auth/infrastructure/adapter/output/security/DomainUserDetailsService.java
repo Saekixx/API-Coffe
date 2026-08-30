@@ -1,4 +1,4 @@
-package com.api.covoshcoffe.auth.infrastructure.adapter.security;
+package com.api.covoshcoffe.auth.infrastructure.adapter.output.security;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.api.covoshcoffe.auth.domain.model.Usuario;
-import com.api.covoshcoffe.auth.domain.ports.UsuarioRepositoryPort;
+import com.api.covoshcoffe.auth.domain.ports.out.UsuarioRepositoryPort;
 
 @Service
 public class DomainUserDetailsService implements UserDetailsService {
@@ -28,7 +28,6 @@ public class DomainUserDetailsService implements UserDetailsService {
         return new User(
                 usuario.email(),
                 usuario.password() != null ? usuario.password() : "",
-                List.of(new SimpleGrantedAuthority("ROLE_" + usuario.rol().name()))
-        );
+                List.of(new SimpleGrantedAuthority("ROLE_" + usuario.rol().name())));
     }
 }
