@@ -29,10 +29,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.userDetailsService = userDetailsService;
     }
 
-
     @Override
-    // Este método se ejecuta para cada solicitud HTTP entrante y se encarga de verificar 
-    // si la solicitud contiene un token JWT válido. Si el token es válido, se autentica al 
+    // Este método se ejecuta para cada solicitud HTTP entrante y se encarga de
+    // verificar
+    // si la solicitud contiene un token JWT válido. Si el token es válido, se
+    // autentica al
     // usuario correspondiente en el contexto de seguridad de Spring.
     protected void doFilterInternal(HttpServletRequest request,
             HttpServletResponse response,
@@ -55,7 +56,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    
     private String obtenerTokenDePeticion(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {

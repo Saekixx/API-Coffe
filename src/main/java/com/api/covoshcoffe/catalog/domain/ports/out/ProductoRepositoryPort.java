@@ -10,6 +10,8 @@ public interface ProductoRepositoryPort {
 
     Optional<Producto> findById(Integer id);
 
+    List<Producto> findAll();
+
     List<Producto> findAllActive();
 
     List<Producto> findByCategoryId(Integer categoryId);

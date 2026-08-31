@@ -33,6 +33,14 @@ public class ProductoRepositoryAdapter implements ProductoRepositoryPort {
     }
 
     @Override
+    public List<Producto> findAll() {
+        return springDataRepository.findAll()
+                .stream()
+                .map(ProductoPersistenceMapper::toDomain)
+                .toList();
+    }
+
+    @Override
     public List<Producto> findAllActive() {
         return springDataRepository.findByIsActiveTrue()
                 .stream()

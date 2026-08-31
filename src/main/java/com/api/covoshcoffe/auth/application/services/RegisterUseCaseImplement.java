@@ -5,7 +5,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.api.covoshcoffe.auth.application.dto.RegisterCommand;
 import com.api.covoshcoffe.auth.application.ports.in.RegisterUseCase;
-import com.api.covoshcoffe.auth.domain.model.Rol;
 import com.api.covoshcoffe.auth.domain.model.Usuario;
 import com.api.covoshcoffe.auth.domain.ports.out.PasswordEncoderPort;
 import com.api.covoshcoffe.auth.domain.ports.out.UsuarioRepositoryPort;

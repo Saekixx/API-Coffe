@@ -6,6 +6,7 @@ import com.api.covoshcoffe.catalog.application.dto.response.CategoryResponse;
 import com.api.covoshcoffe.catalog.application.dto.response.ProductResponse;
 
 public interface GetCatalogUseCase {
+
     List<CategoryResponse> getActiveCategories();
 
     List<ProductResponse> getActiveProducts();

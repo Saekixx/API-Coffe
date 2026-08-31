@@ -21,7 +21,7 @@ insert into categorias (nombre) values
 
 -- 4. PRODUCTOS
 insert into productos (categoria_id, nombre, descripcion, precio_base, imagen_url) values
-(1, 'Espresso Espresso', 'Extracción intensa de granos seleccionados 100% arábica.', 7.00, 'https://images.covosh.com/p/espresso.png'),
+(1, 'Espresso Espresso', 'Extracción intensa de granos seleccionados 100% arábica.', 7.00, 'https://silyqigsqwgsvbsawpfs.supabase.co/storage/v1/object/public/productos/7c704591-fa54-4635-935c-504063464fff.png'),
 (1, 'Cappuccino Tradicional', 'Espresso balanceado con leche vaporizada y suave capa de espuma.', 11.50, 'https://images.covosh.com/p/cappuccino.png'),
 (2, 'Iced Caramel Latte', 'Espresso espresso frío, leche, jarabe de caramelo y hielo.', 14.00, 'https://images.covosh.com/p/iced-caramel.png'),
 (3, 'Croissant de Almendras', 'Hojaldre artesanal relleno de crema de almendras horneada.', 9.50, 'https://images.covosh.com/p/croissant.png'),
