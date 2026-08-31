@@ -11,6 +11,7 @@ create table usuarios (
     proveedor_id varchar(255) null, -- id único retornado por google/fb/apple para vincular la cuenta
     puntos int default 0,
     rol enum('ADMIN', 'CLIENTE', 'BARISTA') not null default 'CLIENTE',
+    is_active boolean default true,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp on update current_timestamp
 );
@@ -23,12 +24,14 @@ create table locales (
     latitud decimal(10, 8),
     longitud decimal(11, 8),
     hora_apertura time,
-    hora_cierre time
+    hora_cierre time,
+    is_active boolean default true
 );
 
 create table categorias (
     id int auto_increment primary key,
-    nombre varchar(50) not null
+    nombre varchar(50) not null,
+    is_active boolean default true
 );
 
 create table productos (
@@ -46,14 +49,16 @@ create table medidas (
     id int auto_increment primary key,
     nombre varchar(50) not null, -- ej: pequeño, mediano, grande
     volumen_ml int,
-    precio_adicional decimal(8, 2) default 0.00
+    precio_adicional decimal(8, 2) default 0.00,
+    is_active boolean default true
 );
 
 create table grupos_personalizacion (
     id int auto_increment primary key,
     nombre varchar(50) not null,          -- ej: 'tipo de leche', 'crema batida', 'cafeína'
     es_obligatorio boolean default false, -- true: exige elegir | false: opcional
-    max_seleccion int default 1           -- 1: selección única (radio) | >1: múltiple (checkbox)
+    max_seleccion int default 1,           -- 1: selección única (radio) | >1: múltiple (checkbox)
+    is_active boolean default true
 );
 
 create table opciones_personalizacion (

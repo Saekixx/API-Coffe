@@ -36,8 +36,8 @@ public class ManageCategoryService implements ManageCategoryUseCase {
     }
 
     @Override
-    public CategoryResponse updateCategory(UpdateCategoryCommand command) {
-        Categoria existente = categoriaRepositoryPort.findById(command.id())
+    public CategoryResponse updateCategory(Integer id,UpdateCategoryCommand command) {
+        Categoria existente = categoriaRepositoryPort.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada"));
 
         Categoria actualizada = new Categoria(existente.id(), command.nombre(), command.isActive());

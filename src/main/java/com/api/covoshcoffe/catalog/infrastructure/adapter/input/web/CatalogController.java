@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.covoshcoffe.catalog.application.dto.response.CategoryResponse;
 import com.api.covoshcoffe.catalog.application.dto.response.ProductResponse;
 import com.api.covoshcoffe.catalog.application.ports.in.GetCatalogUseCase;
+import com.api.covoshcoffe.common.infrastructure.web.response.ResponseGlobal;
 
 @RestController
 @RequestMapping("/api/v1/catalog")
@@ -22,22 +23,23 @@ public class CatalogController {
     }
 
     @GetMapping("/categories")
-    public ResponseEntity<List<CategoryResponse>> getActiveCategories() {
-        return ResponseEntity.ok(getCatalogUseCase.getActiveCategories());
+    public ResponseEntity<ResponseGlobal<List<CategoryResponse>>> getActiveCategories() {
+        return ResponseEntity.ok(ResponseGlobal.success(getCatalogUseCase.getActiveCategories()));
     }
 
     @GetMapping("/products")
-    public ResponseEntity<List<ProductResponse>> getActiveProducts() {
-        return ResponseEntity.ok(getCatalogUseCase.getActiveProducts());
+    public ResponseEntity<ResponseGlobal<List<ProductResponse>>> getActiveProducts() {
+        return ResponseEntity.ok(ResponseGlobal.success(getCatalogUseCase.getActiveProducts()));
     }
 
     @GetMapping("/products/category/{categoryId}")
-    public ResponseEntity<List<ProductResponse>> getProductsByCategory(@PathVariable Integer categoryId) {
-        return ResponseEntity.ok(getCatalogUseCase.getProductsByCategory(categoryId));
+    public ResponseEntity<ResponseGlobal<List<ProductResponse>>> getProductsByCategory(
+            @PathVariable Integer categoryId) {
+        return ResponseEntity.ok(ResponseGlobal.success(getCatalogUseCase.getProductsByCategory(categoryId)));
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<ProductResponse> getProductById(@PathVariable Integer id) {
-        return ResponseEntity.ok(getCatalogUseCase.getProductById(id));
+    public ResponseEntity<ResponseGlobal<ProductResponse>> getProductById(@PathVariable Integer id) {
+        return ResponseEntity.ok(ResponseGlobal.success(getCatalogUseCase.getProductById(id)));
     }
 }

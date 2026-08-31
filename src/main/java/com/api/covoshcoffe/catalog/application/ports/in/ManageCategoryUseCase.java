@@ -11,5 +11,5 @@ public interface ManageCategoryUseCase {
 
     List<CategoryResponse> getAllCategories();
 
-    CategoryResponse updateCategory(UpdateCategoryCommand command);
+    CategoryResponse updateCategory(Integer id, UpdateCategoryCommand command);
 }

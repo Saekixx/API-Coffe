@@ -19,6 +19,8 @@ import com.api.covoshcoffe.catalog.application.dto.request.CreateProductCommand;
 import com.api.covoshcoffe.catalog.application.dto.request.UpdateProductCommand;
 import com.api.covoshcoffe.catalog.application.dto.response.ProductResponse;
 import com.api.covoshcoffe.catalog.application.ports.in.ManageProductUseCase;
+import com.api.covoshcoffe.common.infrastructure.web.response.ResponseGlobal;
+
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
@@ -32,29 +34,30 @@ public class AdminProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductResponse>> allProducts() {
+    public ResponseEntity<ResponseGlobal<List<ProductResponse>>> allProducts() {
         List<ProductResponse> response = manageProductUseCase.getAllProducts();
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(ResponseGlobal.success(response));
     }
 
     @PostMapping
-    public ResponseEntity<ProductResponse> createProduct(
+    public ResponseEntity<ResponseGlobal<ProductResponse>> createProduct(
             @RequestPart(value = "file", required = false) MultipartFile file,
             @RequestPart("data") CreateProductCommand command) {
         ProductResponse response = manageProductUseCase.createProduct(command, file);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ResponseGlobal.success(response));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductResponse> updateProduct(
+    public ResponseEntity<ResponseGlobal<ProductResponse>> updateProduct(
             @PathVariable Integer id,
             @RequestPart(value = "file", required = false) MultipartFile file,
             @RequestPart("data") UpdateProductCommand command) {
-        return ResponseEntity.ok(manageProductUseCase.updateProduct(id, command, file));
+        ProductResponse response = manageProductUseCase.updateProduct(id, command, file);
+        return ResponseEntity.ok(ResponseGlobal.success(response));
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<Void> toggleProductStatus(
+    public ResponseEntity<ResponseGlobal<Void>> toggleProductStatus(
             @PathVariable Integer id,
             @RequestParam Boolean isActive) {
         manageProductUseCase.toggleProductStatus(id, isActive);
