@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "productos")
+@Table(name = "locales")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,10 +32,10 @@ public class LocalEntity {
     @Column
     Double longitud;
 
-    @Column(name = "horario_apertura")
+    @Column(name = "hora_apertura")
     LocalTime horarioApertura;
 
-    @Column(name = "horario_cierre")
+    @Column(name = "hora_cierre")
     LocalTime horarioCierre;
 
     @Column(name = "is_active")
