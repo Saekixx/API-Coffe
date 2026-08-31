@@ -11,7 +11,7 @@ public class CategoriaPersistenceMapper {
                 entity.getId(),
                 entity.getNombre(),
                 entity.isActive());
-    }
+    } 
 
     public static CategoriaEntity toEntity(Categoria domain) {
         if (domain == null)

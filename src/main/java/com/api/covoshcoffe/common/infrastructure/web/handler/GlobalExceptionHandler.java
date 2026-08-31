@@ -10,7 +10,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.api.covoshcoffe.common.domain.exeption.AccessDeniedException;
 import com.api.covoshcoffe.common.domain.exeption.AlreadyExistsException;
 import com.api.covoshcoffe.common.domain.exeption.BusinessException;
 import com.api.covoshcoffe.common.domain.exeption.DomainException;
