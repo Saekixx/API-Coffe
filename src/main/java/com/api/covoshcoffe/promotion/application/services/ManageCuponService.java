@@ -2,15 +2,18 @@ package com.api.covoshcoffe.promotion.application.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.api.covoshcoffe.common.domain.exeption.BusinessException;
 import com.api.covoshcoffe.common.domain.exeption.ResourceNotFoundException;
 import com.api.covoshcoffe.promotion.application.dto.request.CreateCuponesRequest;
 import com.api.covoshcoffe.promotion.application.dto.request.UpdateCuponesRequest;
-import com.api.covoshcoffe.promotion.application.ports.in.ManagerCupoUseCase;
+import com.api.covoshcoffe.promotion.application.ports.in.ManagerCuponUseCase;
 import com.api.covoshcoffe.promotion.domain.model.Cupones;
 import com.api.covoshcoffe.promotion.domain.ports.out.CategoryRepositoryPort;
 
-public class ManageCuponService implements ManagerCupoUseCase {
+@Service
+public class ManageCuponService implements ManagerCuponUseCase {
     private final CategoryRepositoryPort categoryRepositoryPort;
 
     public ManageCuponService(CategoryRepositoryPort categoryRepositoryPort) {

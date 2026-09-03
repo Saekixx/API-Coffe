@@ -28,7 +28,7 @@ public class ProductoRepositoryAdapter implements ProductoRepositoryPort {
 
     @Override
     public Optional<Producto> findById(Integer id) {
-        return springDataRepository.findById(id)
+        return springDataRepository.findByIdWithGruposAndOpciones(id)
                 .map(ProductoPersistenceMapper::toDomain);
     }
 

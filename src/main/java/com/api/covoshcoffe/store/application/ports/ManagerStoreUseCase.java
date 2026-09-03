@@ -6,7 +6,7 @@ import com.api.covoshcoffe.store.application.dto.request.CreateLocalCommand;
 import com.api.covoshcoffe.store.application.dto.request.UpdateLocalCommand;
 import com.api.covoshcoffe.store.domain.model.Local;
 
-public interface ManageStoreUseCase {
+public interface ManagerStoreUseCase {
     List<Local> getAllStores();
 
     Local createStore(CreateLocalCommand command);

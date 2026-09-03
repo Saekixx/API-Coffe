@@ -1,6 +1,7 @@
 package com.api.covoshcoffe.catalog.application.services;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,8 +13,10 @@ import com.api.covoshcoffe.catalog.application.dto.response.CategoryResponse;
 import com.api.covoshcoffe.catalog.application.dto.response.ProductResponse;
 import com.api.covoshcoffe.catalog.application.ports.in.ManageProductUseCase;
 import com.api.covoshcoffe.catalog.domain.model.Categoria;
+import com.api.covoshcoffe.catalog.domain.model.GrupoPersonalizacion;
 import com.api.covoshcoffe.catalog.domain.model.Producto;
 import com.api.covoshcoffe.catalog.domain.ports.out.CategoriaRepositoryPort;
+import com.api.covoshcoffe.catalog.domain.ports.out.PersonalizacionRepositoryPort;
 import com.api.covoshcoffe.catalog.domain.ports.out.ProductoRepositoryPort;
 import com.api.covoshcoffe.common.application.ports.output.StoragePort;
 import com.api.covoshcoffe.common.domain.exeption.ResourceNotFoundException;
@@ -23,12 +26,15 @@ import com.api.covoshcoffe.common.domain.exeption.ResourceNotFoundException;
 public class ManageProductService implements ManageProductUseCase {
         private final ProductoRepositoryPort productoRepositoryPort;
         private final CategoriaRepositoryPort categoriaRepositoryPort;
+        private final PersonalizacionRepositoryPort grupoPersonalizacionRepositoryPort;
         private final StoragePort storagePort;
 
         public ManageProductService(ProductoRepositoryPort productoRepositoryPort,
-                        CategoriaRepositoryPort categoriaRepositoryPort, StoragePort storagePort) {
+                        CategoriaRepositoryPort categoriaRepositoryPort,
+                        PersonalizacionRepositoryPort grupoPersonalizacionRepositoryPort, StoragePort storagePort) {
                 this.productoRepositoryPort = productoRepositoryPort;
                 this.categoriaRepositoryPort = categoriaRepositoryPort;
+                this.grupoPersonalizacionRepositoryPort = grupoPersonalizacionRepositoryPort;
                 this.storagePort = storagePort;
         }
 
@@ -52,14 +58,20 @@ public class ManageProductService implements ManageProductUseCase {
                         imagenUrl = storagePort.uploadFile(imageFile);
                 }
 
+                Set<GrupoPersonalizacion> grupos = Set.of();
+                if (command.grupoIds() != null && !command.grupoIds().isEmpty()) {
+                        grupos = grupoPersonalizacionRepositoryPort.findByIds(command.grupoIds());
+                }
+
                 Producto producto = new Producto(
                                 null,
                                 command.nombre(),
                                 command.descripcion(),
                                 command.precioBase(),
                                 categoria,
-                                imagenUrl, // Se puede establecer como null si no se proporciona una imagen
-                                true);
+                                imagenUrl,
+                                true, // Nuevo producto activo por defecto
+                                grupos);
 
                 Producto guardado = productoRepositoryPort.save(producto);
                 return mapToResponse(guardado);
@@ -80,6 +92,11 @@ public class ManageProductService implements ManageProductUseCase {
                         imagenUrl = storagePort.uploadFile(imageFile);
                 }
 
+                Set<GrupoPersonalizacion> grupos = Set.of();
+                if (command.grupoIds() != null && !command.grupoIds().isEmpty()) {
+                        grupos = grupoPersonalizacionRepositoryPort.findByIds(command.grupoIds());
+                }
+
                 Producto productoActualizado = new Producto(
                                 existente.id(),
                                 command.nombre(),
@@ -87,7 +104,8 @@ public class ManageProductService implements ManageProductUseCase {
                                 command.precioBase(),
                                 categoria,
                                 imagenUrl,
-                                command.isActive());
+                                command.isActive(),
+                                grupos);
 
                 Producto guardado = productoRepositoryPort.save(productoActualizado);
                 return mapToResponse(guardado);
@@ -105,7 +123,8 @@ public class ManageProductService implements ManageProductUseCase {
                                 producto.precioBase(),
                                 producto.categoria(),
                                 producto.imagenUrl(),
-                                !producto.isActive());
+                                !producto.isActive(),
+                                producto.grupos());
 
                 productoRepositoryPort.save(productoModificado);
                 return productoModificado.isActive() ? "Producto activado" : "Producto desactivado";

@@ -8,13 +8,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.covoshcoffe.common.infrastructure.web.response.ResponseGlobal;
 import com.api.covoshcoffe.store.application.dto.request.CreateLocalCommand;
 import com.api.covoshcoffe.store.application.dto.request.UpdateLocalCommand;
-import com.api.covoshcoffe.store.application.services.ManageStoreService;
+import com.api.covoshcoffe.store.application.ports.ManagerStoreUseCase;
 import com.api.covoshcoffe.store.domain.model.Local;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +24,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/api/v1/admin/stores")
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminStoreController {
-    private final ManageStoreService manageStoreService;
+    private final ManagerStoreUseCase manageStoreService;
 
-    public AdminStoreController(ManageStoreService manageStoreService) {
+    public AdminStoreController(ManagerStoreUseCase manageStoreService) {
         this.manageStoreService = manageStoreService;
     }
 

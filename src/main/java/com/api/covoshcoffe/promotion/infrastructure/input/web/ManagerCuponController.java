@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.covoshcoffe.common.infrastructure.web.response.ResponseGlobal;
 import com.api.covoshcoffe.promotion.application.dto.request.CreateCuponesRequest;
 import com.api.covoshcoffe.promotion.application.dto.request.UpdateCuponesRequest;
-import com.api.covoshcoffe.promotion.application.ports.in.ManagerCupoUseCase;
+import com.api.covoshcoffe.promotion.application.ports.in.ManagerCuponUseCase;
 import com.api.covoshcoffe.promotion.domain.model.Cupones;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api/v1/admin/cupones")
 @PreAuthorize("hasRole('ADMIN')")
 public class ManagerCuponController {
-    private final ManagerCupoUseCase managerCuponUseCase;
+    private final ManagerCuponUseCase managerCuponUseCase;
 
-    public ManagerCuponController(ManagerCupoUseCase managerCuponUseCase) {
+    public ManagerCuponController(ManagerCuponUseCase managerCuponUseCase) {
         this.managerCuponUseCase = managerCuponUseCase;
     }
 

@@ -2,6 +2,7 @@ package com.api.covoshcoffe.catalog.domain.ports.out;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import com.api.covoshcoffe.catalog.domain.model.GrupoPersonalizacion;
 import com.api.covoshcoffe.catalog.domain.model.OpcionPersonalizacion;
@@ -12,6 +13,8 @@ public interface PersonalizacionRepositoryPort {
     OpcionPersonalizacion saveOption(OpcionPersonalizacion opcion);
 
     List<GrupoPersonalizacion> findAllActiveGroups();
+
+    Set<GrupoPersonalizacion> findByIds(List<Integer> ids);
 
     Optional<GrupoPersonalizacion> findGroupById(Integer id);
 

@@ -1,17 +1,18 @@
 package com.api.covoshcoffe.catalog.infrastructure.adapter.output.persistence.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "grupos_personalizacion")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
@@ -33,6 +34,8 @@ public class GrupoPersonalizacionEntity {
     private boolean isActive;
 
     @OneToMany(mappedBy = "grupoPersonalizacion", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
-    private List<OpcionPersonalizacionEntity> opciones = new ArrayList<>();
+    private Set<OpcionPersonalizacionEntity> opciones;
+
+    @ManyToMany(mappedBy = "grupos")
+    private Set<ProductoEntity> productos;
 }

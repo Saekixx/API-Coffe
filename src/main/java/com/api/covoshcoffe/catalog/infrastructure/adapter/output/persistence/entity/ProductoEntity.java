@@ -1,13 +1,17 @@
 package com.api.covoshcoffe.catalog.infrastructure.adapter.output.persistence.entity;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "productos")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductoEntity {
@@ -33,4 +37,8 @@ public class ProductoEntity {
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     CategoriaEntity categoria;
+
+    @ManyToMany
+    @JoinTable(name = "producto_grupos", joinColumns = @JoinColumn(name = "producto_id"), inverseJoinColumns = @JoinColumn(name = "grupo_id"))
+    Set<GrupoPersonalizacionEntity> grupos;
 }

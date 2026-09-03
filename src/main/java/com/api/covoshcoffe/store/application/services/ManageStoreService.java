@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 import com.api.covoshcoffe.common.domain.exeption.ResourceNotFoundException;
 import com.api.covoshcoffe.store.application.dto.request.CreateLocalCommand;
 import com.api.covoshcoffe.store.application.dto.request.UpdateLocalCommand;
-import com.api.covoshcoffe.store.application.ports.ManageStoreUseCase;
+import com.api.covoshcoffe.store.application.ports.ManagerStoreUseCase;
 import com.api.covoshcoffe.store.domain.model.Local;
 import com.api.covoshcoffe.store.domain.ports.out.LocalRepositoryPort;
 
 @Service
-public class ManageStoreService implements ManageStoreUseCase {
+public class ManageStoreService implements ManagerStoreUseCase {
     private final LocalRepositoryPort localRepositoryPort;
 
     public ManageStoreService(LocalRepositoryPort localRepositoryPort) {

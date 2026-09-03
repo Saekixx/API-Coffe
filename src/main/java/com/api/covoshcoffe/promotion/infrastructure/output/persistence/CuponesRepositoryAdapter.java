@@ -29,7 +29,7 @@ public class CuponesRepositoryAdapter implements CategoryRepositoryPort {
 
     @Override
     public List<Cupones> findAllActive() {
-        List<CuponesEntity> entities = springDataRepository.findAllByIsActiveTrue();
+        List<CuponesEntity> entities = springDataRepository.findAllByActivoTrue();
         return entities.stream()
                 .map(CuponesPersistenceMapper::toDomain)
                 .toList();
@@ -52,7 +52,7 @@ public class CuponesRepositoryAdapter implements CategoryRepositoryPort {
 
     @Override
     public Optional<Cupones> findByCode(String code) {
-        return Optional.ofNullable(springDataRepository.findByCode(code))
+        return Optional.ofNullable(springDataRepository.findByCodigo(code))
                 .map(CuponesPersistenceMapper::toDomain);
     }
 

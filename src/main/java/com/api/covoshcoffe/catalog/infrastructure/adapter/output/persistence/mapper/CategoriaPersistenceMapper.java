@@ -2,7 +2,7 @@ package com.api.covoshcoffe.catalog.infrastructure.adapter.output.persistence.ma
 
 import com.api.covoshcoffe.catalog.domain.model.Categoria;
 import com.api.covoshcoffe.catalog.infrastructure.adapter.output.persistence.entity.CategoriaEntity;
- 
+
 public class CategoriaPersistenceMapper {
     public static Categoria toDomain(CategoriaEntity entity) {
         if (entity == null)
@@ -11,7 +11,7 @@ public class CategoriaPersistenceMapper {
                 entity.getId(),
                 entity.getNombre(),
                 entity.isActive());
-    } 
+    }
 
     public static CategoriaEntity toEntity(Categoria domain) {
         if (domain == null)

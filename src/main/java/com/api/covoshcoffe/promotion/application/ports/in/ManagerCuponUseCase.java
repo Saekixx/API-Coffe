@@ -6,7 +6,7 @@ import com.api.covoshcoffe.promotion.application.dto.request.CreateCuponesReques
 import com.api.covoshcoffe.promotion.application.dto.request.UpdateCuponesRequest;
 import com.api.covoshcoffe.promotion.domain.model.Cupones;
 
-public interface ManagerCupoUseCase {
+public interface ManagerCuponUseCase {
     Cupones createCupo(CreateCuponesRequest request);
 
     Cupones updateCupo(Integer id, UpdateCuponesRequest request);

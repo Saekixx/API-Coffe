@@ -21,9 +21,9 @@ insert into categorias (nombre) values
 
 -- 4. PRODUCTOS
 insert into productos (categoria_id, nombre, descripcion, precio_base, imagen_url) values
-(1, 'Espresso Espresso', 'Extracción intensa de granos seleccionados 100% arábica.', 7.00, 'https://silyqigsqwgsvbsawpfs.supabase.co/storage/v1/object/public/productos/7c704591-fa54-4635-935c-504063464fff.png'),
+(1, 'Espresso', 'Extracción intensa de granos seleccionados 100% arábica.', 7.00, 'https://silyqigsqwgsvbsawpfs.supabase.co/storage/v1/object/public/productos/7c704591-fa54-4635-935c-504063464fff.png'),
 (1, 'Cappuccino Tradicional', 'Espresso balanceado con leche vaporizada y suave capa de espuma.', 11.50, 'https://images.covosh.com/p/cappuccino.png'),
-(2, 'Iced Caramel Latte', 'Espresso espresso frío, leche, jarabe de caramelo y hielo.', 14.00, 'https://images.covosh.com/p/iced-caramel.png'),
+(2, 'Iced Caramel Latte', 'Espresso frío, leche, jarabe de caramelo y hielo.', 14.00, 'https://images.covosh.com/p/iced-caramel.png'),
 (3, 'Croissant de Almendras', 'Hojaldre artesanal relleno de crema de almendras horneada.', 9.50, 'https://images.covosh.com/p/croissant.png'),
 (4, 'Sándwich Caprese', 'Pan ciabatta, queso mozzarella, tomate y salsa pesto.', 16.00, 'https://images.covosh.com/p/caprese.png');
 
@@ -37,7 +37,7 @@ insert into medidas (nombre, volumen_ml, precio_adicional) values
 insert into grupos_personalizacion (nombre, es_obligatorio, max_seleccion) values
 ('Tipo de Leche', false, 1),
 ('Nivel de Dulzor', false, 1),
-('Coppings y Extras', false, 3);
+('Toppings y Extras', false, 3);
 
 -- 7. OPCIONES DE PERSONALIZACIÓN
 insert into opciones_personalizacion (grupo_id, nombre, precio_adicional) values
@@ -51,31 +51,35 @@ insert into opciones_personalizacion (grupo_id, nombre, precio_adicional) values
 (3, 'Crema Batida', 2.00),
 (3, 'Shot Extra de Espresso', 3.50);
 
--- 8. PRODUCTO_GRUPOS (Asociar opciones a productos)
+-- 8. PRODUCTO_GRUPOS
 insert into producto_grupos (producto_id, grupo_id) values
 (2, 1), (2, 2), (2, 3), -- Cappuccino
 (3, 1), (3, 2), (3, 3); -- Iced Latte
 
 -- 9. CUPONES
-insert into cupones (codigo, descuento_monto, activo) values
-('BIENVENIDA10', 5.00, true),
-('PROMOCOVOSH', 3.00, true);
+-- Corregido: 'descuento_monto' por 'descuento' (según la definición del schema)
+insert into cupones (codigo, descuento, fecha_expiracion, activo) values
+('BIENVENIDA10', 5.00, '2026-12-31 23:59:59', true),
+('PROMOCOVOSH', 3.00, '2026-12-31 23:59:59', true);
 
 -- 10. PEDIDOS
+-- Corregido: Subtotal (17.00) - Descuento (5.00) = Total (12.00)
 insert into pedidos (usuario_id, local_id, cupon_id, metodo_entrega, fecha_programada, hora_programada, subtotal, descuento, total, estado) values
-(3, 1, 1, 'EN_LOCAL', '2026-08-30', '09:30:00', 16.50, 5.00, 11.50, 'LISTO');
+(3, 1, 1, 'EN_LOCAL', '2026-08-30', '09:30:00', 17.00, 5.00, 12.00, 'LISTO');
 
 -- 11. DETALLE DE PEDIDOS
+-- Corregido: Precio unitario = Cappuccino Base (11.50) + Mediano (2.50) + Leche Avena (3.00) = 17.00
 insert into detalle_pedidos (pedido_id, producto_id, medida_id, cantidad, precio_unitario, subtotal) values
-(1, 2, 2, 1, 14.00, 14.00); -- Cappuccino Mediano (11.50 + 2.50)
+(1, 2, 2, 1, 17.00, 17.00); 
 
 -- 12. DETALLE DE PERSONALIZACIONES
 insert into detalle_personalizaciones (detalle_pedido_id, opcion_id) values
 (1, 3); -- Leche de Avena (+3.00)
 
 -- 13. PAGOS
+-- Corregido: Monto ajustado al total real calculado (12.00)
 insert into pagos (pedido_id, metodo, proveedor_tarjeta, ultimos_4_digitos, monto, estado_pago) values
-(1, 'TARJETA', 'VISA', '4242', 11.50, 'COMPLETADO');
+(1, 'TARJETA', 'VISA', '4242', 12.00, 'COMPLETADO');
 
 -- 14. FAVORITOS
 insert into favoritos (usuario_id, producto_id) values

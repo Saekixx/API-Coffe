@@ -2,6 +2,8 @@ package com.api.covoshcoffe.catalog.infrastructure.adapter.output.persistence.ma
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.api.covoshcoffe.catalog.domain.model.GrupoPersonalizacion;
 import com.api.covoshcoffe.catalog.domain.model.OpcionPersonalizacion;
@@ -67,8 +69,6 @@ public class PersonalizacionPersistenceMapper {
                 grupoDomain);
     }
 
-    // --- SOBRECARGA 1: Acepta solo la opción (toma el grupo del propio objeto de
-    // dominio) ---
     public static OpcionPersonalizacionEntity toEntity(OpcionPersonalizacion domain) {
         if (domain == null)
             return null;
@@ -82,7 +82,6 @@ public class PersonalizacionPersistenceMapper {
         return toEntity(domain, grupoEntity);
     }
 
-    // --- SOBRECARGA 2: Recibe el grupo explícitamente ---
     public static OpcionPersonalizacionEntity toEntity(OpcionPersonalizacion domain,
             GrupoPersonalizacionEntity grupoEntity) {
         if (domain == null)
@@ -95,5 +94,14 @@ public class PersonalizacionPersistenceMapper {
         entity.setGrupoPersonalizacion(grupoEntity);
 
         return entity;
+    }
+
+    public static Set<OpcionPersonalizacion> toDomainSet(Set<OpcionPersonalizacionEntity> entities) {
+        if (entities == null)
+            return Collections.emptySet();
+
+        return entities.stream()
+                .map(PersonalizacionPersistenceMapper::toDomain)
+                .collect(Collectors.toSet());
     }
 }

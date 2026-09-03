@@ -3,6 +3,8 @@ package com.api.covoshcoffe.catalog.infrastructure.adapter.output.persistence;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -46,6 +48,14 @@ public class PersonalizacionRepositoryAdapter implements PersonalizacionReposito
                 .stream()
                 .map(entity -> PersonalizacionPersistenceMapper.toDomain(entity, Collections.emptyList()))
                 .toList();
+    }
+
+    @Override
+    public Set<GrupoPersonalizacion> findByIds(List<Integer> ids) {
+        return grupoRepository.findAllById(ids)
+                .stream()
+                .map(entity -> PersonalizacionPersistenceMapper.toDomain(entity, Collections.emptyList()))
+                .collect(Collectors.toSet());
     }
 
     @Override

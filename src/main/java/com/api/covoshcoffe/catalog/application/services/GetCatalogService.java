@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.api.covoshcoffe.catalog.application.dto.response.CategoryResponse;
+import com.api.covoshcoffe.catalog.application.dto.response.ProductDetalleResponse;
 import com.api.covoshcoffe.catalog.application.dto.response.ProductResponse;
 import com.api.covoshcoffe.catalog.application.ports.in.GetCatalogUseCase;
 import com.api.covoshcoffe.catalog.domain.ports.out.ProductoRepositoryPort;
@@ -50,10 +51,11 @@ public class GetCatalogService implements GetCatalogUseCase {
     }
 
     @Override
-    public ProductResponse getProductById(Integer id) {
-        return productoRepositoryPort.findById(id)
-                .map(this::mapToResponse)
-                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con id: " + id));
+    public ProductDetalleResponse getProductById(Integer id) {
+        Producto producto = productoRepositoryPort.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado: " + id));
+
+        return ProductDetalleResponse.fromDomain(producto);
     }
 
     // Metodo para mapear un objeto Producto a ProductResponse
@@ -71,4 +73,5 @@ public class GetCatalogService implements GetCatalogUseCase {
                 p.isActive(),
                 catResp);
     }
+
 }
