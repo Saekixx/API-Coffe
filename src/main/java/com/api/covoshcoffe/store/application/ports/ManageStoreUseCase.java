@@ -13,5 +13,5 @@ public interface ManageStoreUseCase {
 
     Local updateStore(Integer id, UpdateLocalCommand command);
 
-    void toggleStoreStatus(Integer id);
+    String toggleStoreStatus(Integer id);
 }

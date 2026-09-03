@@ -32,7 +32,7 @@ public class CatalogController {
         return ResponseEntity.ok(ResponseGlobal.success(getCatalogUseCase.getActiveProducts()));
     }
 
-    @GetMapping("/products/category/{categoryId}")
+    @GetMapping("/categories/{categoryId}")
     public ResponseEntity<ResponseGlobal<List<ProductResponse>>> getProductsByCategory(
             @PathVariable Integer categoryId) {
         return ResponseEntity.ok(ResponseGlobal.success(getCatalogUseCase.getProductsByCategory(categoryId)));

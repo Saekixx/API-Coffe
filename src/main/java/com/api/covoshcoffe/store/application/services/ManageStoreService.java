@@ -65,7 +65,7 @@ public class ManageStoreService implements ManageStoreUseCase {
     }
 
     @Override
-    public void toggleStoreStatus(Integer id) {
+    public String toggleStoreStatus(Integer id) {
         Local local = localRepositoryPort.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Local no encontrado con el id: " + id));
 
@@ -82,5 +82,7 @@ public class ManageStoreService implements ManageStoreUseCase {
         );
 
         localRepositoryPort.save(updatedLocal);
+
+        return updatedLocal.isActive() ? "Local activado" : "Local desactivado";
     }
 }

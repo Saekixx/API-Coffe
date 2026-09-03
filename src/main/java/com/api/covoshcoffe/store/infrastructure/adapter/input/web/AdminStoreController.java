@@ -51,9 +51,9 @@ public class AdminStoreController {
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<ResponseGlobal<Void>> toggleStoreStatus(
+    public ResponseEntity<ResponseGlobal<String>> toggleStoreStatus(
             @PathVariable Integer id) {
-        manageStoreService.toggleStoreStatus(id);
-        return ResponseEntity.noContent().build();
+        String message = manageStoreService.toggleStoreStatus(id);
+        return ResponseEntity.ok(ResponseGlobal.success(message));
     }
 }

@@ -15,5 +15,5 @@ public interface ManageProductUseCase {
 
     List<ProductResponse> getAllProducts();
 
-    void toggleProductStatus(Integer id, Boolean isActive);
+    String toggleProductStatus(Integer id);
 }

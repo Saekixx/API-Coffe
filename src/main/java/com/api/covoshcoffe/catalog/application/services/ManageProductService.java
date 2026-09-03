@@ -94,7 +94,7 @@ public class ManageProductService implements ManageProductUseCase {
         }
 
         @Override
-        public void toggleProductStatus(Integer id, Boolean isActive) {
+        public String toggleProductStatus(Integer id) {
                 Producto producto = productoRepositoryPort.findById(id)
                                 .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
 
@@ -105,9 +105,10 @@ public class ManageProductService implements ManageProductUseCase {
                                 producto.precioBase(),
                                 producto.categoria(),
                                 producto.imagenUrl(),
-                                isActive);
+                                !producto.isActive());
 
                 productoRepositoryPort.save(productoModificado);
+                return productoModificado.isActive() ? "Producto activado" : "Producto desactivado";
         }
 
         // Metodo para mapear un objeto Producto a ProductResponse

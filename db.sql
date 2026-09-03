@@ -80,7 +80,9 @@ create table producto_grupos (
 create table cupones (
     id int auto_increment primary key,
     codigo varchar(50) unique not null,
-    descuento_monto decimal(8, 2) default 0.00,
+    descuento decimal(8, 2) default 0.00,
+    limite_usos int default null,
+    usos_actuales int default 0,
     activo boolean default true
 );
 

@@ -46,6 +46,7 @@ public class SecurityConfig {
                         // Rutas publicas que no requieren autenticación
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/api/v1/catalog/**").permitAll()
+                        .requestMatchers("/api/v1/stores/**").permitAll()
                         // Cualquier otra ruta requiere autenticación
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

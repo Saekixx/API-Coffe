@@ -14,6 +14,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -47,5 +48,11 @@ public class AdminCategorieController {
             @RequestBody UpdateCategoryCommand command) {
         CategoryResponse response = manageCategoryUseCase.updateCategory(id, command);
         return ResponseEntity.ok(ResponseGlobal.success(response));
+    }
+
+    @PatchMapping("/{id}/toggle-status")
+    public ResponseEntity<ResponseGlobal<String>> toggleCategoryStatus(@PathVariable Integer id) {
+        String message = manageCategoryUseCase.toggleCategoryStatus(id);
+        return ResponseEntity.ok(ResponseGlobal.success(message));
     }
 }

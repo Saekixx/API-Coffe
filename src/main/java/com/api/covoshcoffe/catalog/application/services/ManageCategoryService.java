@@ -36,14 +36,24 @@ public class ManageCategoryService implements ManageCategoryUseCase {
     }
 
     @Override
-    public CategoryResponse updateCategory(Integer id,UpdateCategoryCommand command) {
+    public CategoryResponse updateCategory(Integer id, UpdateCategoryCommand command) {
         Categoria existente = categoriaRepositoryPort.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada"));
 
-        Categoria actualizada = new Categoria(existente.id(), command.nombre(), command.isActive());
+        Categoria actualizada = new Categoria(existente.id(), command.nombre(), existente.isActive());
 
         Categoria guardada = categoriaRepositoryPort.save(actualizada);
         return new CategoryResponse(guardada.id(), guardada.nombre(), guardada.isActive());
     }
 
+    @Override
+    public String toggleCategoryStatus(Integer id) {
+        Categoria existente = categoriaRepositoryPort.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada"));
+
+        Categoria actualizada = new Categoria(existente.id(), existente.nombre(), !existente.isActive());
+
+        categoriaRepositoryPort.save(actualizada);
+        return actualizada.isActive() ? "Categoría activada" : "Categoría desactivada";
+    }
 }

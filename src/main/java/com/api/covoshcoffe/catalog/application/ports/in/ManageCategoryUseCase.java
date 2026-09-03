@@ -12,4 +12,6 @@ public interface ManageCategoryUseCase {
     List<CategoryResponse> getAllCategories();
 
     CategoryResponse updateCategory(Integer id, UpdateCategoryCommand command);
+
+    String toggleCategoryStatus(Integer id);
 }
