@@ -1,26 +1,16 @@
 package com.api.covoshcoffe.order.domain.model;
 
+import com.api.covoshcoffe.auth.domain.model.Usuario;
+import com.api.covoshcoffe.promotion.domain.model.Cupones;
+import com.api.covoshcoffe.store.domain.model.Local;
+
 import java.time.LocalDateTime;
-
-enum MetodoEntrega{
-    EN_LOCAL,
-    DELIVERY
-}
-
-enum EstadoPedido{
-    PENDIENTE,
-    EN_PREPARACION,
-    LISTO,
-    EN_CAMINO,
-    ENTREGADO,
-    CANCELADO
-}
 
 public record Pedidos(
         Integer id,
-        Integer usuarioId,
-        Integer localId,
-        Integer cuponId,
+        Usuario usuario,
+        Local local,
+        Cupones cupones,
         MetodoEntrega metodoEntrega,
         LocalDateTime fechaEntrega,
         Double subTotal,
@@ -30,7 +20,21 @@ public record Pedidos(
         EstadoPedido estado,
         LocalDateTime createdAt) {
 
-    public Pedidos(Integer usuarioId, Integer localId, Integer cuponId, MetodoEntrega metodoEntrega, LocalDateTime fechaEntrega, Double subTotal, Double descuento, Double total, Integer itemsTotal, EstadoPedido estado) {
-        this(null, usuarioId, localId, cuponId, metodoEntrega, fechaEntrega, subTotal, descuento, total, itemsTotal, estado, LocalDateTime.now());
+    public Pedidos(Usuario usuario, Local local, Cupones cupones, MetodoEntrega metodoEntrega, LocalDateTime fechaEntrega, Double subTotal, Double descuento, Double total, Integer itemsTotal, EstadoPedido estado) {
+        this(null, usuario, local, cupones, metodoEntrega, fechaEntrega, subTotal, descuento, total, itemsTotal, estado, LocalDateTime.now());
+    }
+
+    public enum MetodoEntrega{
+        EN_LOCAL,
+        DELIVERY
+    }
+
+    public enum EstadoPedido{
+        PENDIENTE,
+        EN_PREPARACION,
+        LISTO,
+        EN_CAMINO,
+        ENTREGADO,
+        CANCELADO
     }
 }

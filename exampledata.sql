@@ -1,6 +1,6 @@
 use covoshcoffe_db;
 
--- 1. DISTRITOS (Requerido para la FK de locales)
+-- 1. DISTRITOS
 insert into distritos (detalle) values
 ('Miraflores'),
 ('San Isidro'),
@@ -13,7 +13,7 @@ insert into usuarios (nombre_completo, email, password_hash, proveedor_auth, rol
 ('Ana Gómez', 'ana.gomez@gmail.com', '$2a$12$eImiTXuWVxfM37uY4JANjOL.8844Z1234567890abcdefghijklm', 'LOCAL', 'CLIENTE', 120),
 ('Luis Torres', 'ltorres@gmail.com', null, 'GOOGLE', 'CLIENTE', 45);
 
--- 3. LOCALES (Ajustado al esquema de la tabla: razon_social, direccion, idDistrito, horario...)
+-- 3. LOCALES
 insert into locales (razon_social, direccion, idDistrito, horario, latitud, longitud) values
 ('Covosh - Miraflores', 'Av. José Larco 742', 1, '07:00:00 - 22:00:00', -12.12154300, -77.02987100),
 ('Covosh - San Isidro', 'Av. Víctor Andrés Belaúnde 147', 2, '07:30:00 - 21:00:00', -12.09541200, -77.03512300);
@@ -39,13 +39,13 @@ insert into medidas (nombre, volumen_ml, precio_adicional) values
 ('Mediano (12 oz)', 355, 2.50),
 ('Grande (16 oz)', 470, 4.00);
 
--- 7. GRUPOS DE PERSONALIZACIÓN (Extraídos directamente de la interfaz)
+-- 7. GRUPOS DE PERSONALIZACIÓN
 insert into grupos_personalizacion (id, nombre, es_obligatorio, max_seleccion) values
-(1, 'Leche', true, 1),          -- Pick 1 (Radio)
-(2, 'Crema Batida', true, 1),   -- Pick 1 (Radio)
-(3, 'Cafeína', false, 1);        -- Checkbox opcional
+(1, 'Leche', true, 1),
+(2, 'Crema Batida', true, 1),
+(3, 'Cafeína', false, 1);
 
--- 8. OPCIONES DE PERSONALIZACIÓN (Valores e incrementos según la imagen)
+-- 8. OPCIONES DE PERSONALIZACIÓN
 insert into opciones_personalizacion (grupo_id, nombre, precio_adicional) values
 -- Grupo 1: Leche
 (1, 'Leche entera', 0.00),
@@ -62,7 +62,7 @@ insert into opciones_personalizacion (grupo_id, nombre, precio_adicional) values
 -- Grupo 3: Cafeína
 (3, '¿Sin cafeína?', 0.00);
 
--- 9. PRODUCTO_GRUPOS (Asociando personalizaciones a Cappuccino e Iced Latte)
+-- 9. PRODUCTO_GRUPOS
 insert into producto_grupos (producto_id, grupo_id) values
 (2, 1), (2, 2), (2, 3), -- Cappuccino
 (3, 1), (3, 2), (3, 3); -- Iced Caramel Latte
@@ -73,23 +73,24 @@ insert into cupones (codigo, descuento, fecha_expiracion, activo) values
 ('PROMOCOVOSH', 3.00, '2026-12-31 23:59:59', true);
 
 -- 11. PEDIDOS
--- Cálculo: Subtotal (14.70) - Descuento (5.00) = Total (9.70) | items_total = 1
-insert into pedidos (usuario_id, local_id, cupon_id, metodo_entrega, fecha_programada, hora_programada, subtotal, descuento, total, items_total, estado) values
-(3, 1, 1, 'EN_LOCAL', '2026-08-30', '09:30:00', 14.70, 5.00, 9.70, 1, 'LISTO');
+-- Se corrigieron los campos fecha_programada y hora_programada por fecha_entrega (timestamp)
+insert into pedidos (usuario_id, local_id, cupon_id, metodo_entrega, fecha_entrega, subtotal, descuento, total, items_total, estado) values
+(3, 1, 1, 'EN_LOCAL', '2026-08-30 09:30:00', 14.70, 5.00, 9.70, 1, 'LISTO');
 
 -- 12. DETALLE DE PEDIDOS
--- Cappuccino Base (11.50) + Mediano (2.50) + Leche Avena (0.70) = 14.70
-insert into detalle_pedidos (pedido_id, producto_id, medida_id, cantidad, precio_unitario, subtotal) values
-(1, 2, 2, 1, 14.70, 14.70);
+-- Se quitó el campo subtotal ya que es una columna generada automáticamente (GENERATED ALWAYS AS)
+insert into detalle_pedidos (pedido_id, producto_id, medida_id, cantidad, precio_unitario) values
+(1, 2, 2, 1, 14.70);
 
--- 13. DETALLE DE PERSONALIZACIONES (Asigna 'Leche de avena' ID=6 y 'Sin crema batida' ID=7)
+-- 13. DETALLE DE PERSONALIZACIONES
 insert into detalle_personalizaciones (detalle_pedido_id, opcion_id) values
 (1, 6),
 (1, 7);
 
 -- 14. PAGOS
-insert into pagos (pedido_id, metodo, proveedor_tarjeta, ultimos_4_digitos, monto, estado_pago) values
-(1, 'TARJETA', 'VISA', '4242', 9.70, 'COMPLETADO');
+-- Se corrigió el valor del método a 'TARJETA_CREDITO' y el campo proveedor_tarjeta a proveedor
+insert into pagos (pedido_id, metodo, proveedor, ultimos_4_digitos, monto, estado_pago) values
+(1, 'TARJETA_CREDITO', 'VISA', '4242', 9.70, 'COMPLETADO');
 
 -- 15. FAVORITOS
 insert into favoritos (usuario_id, producto_id) values

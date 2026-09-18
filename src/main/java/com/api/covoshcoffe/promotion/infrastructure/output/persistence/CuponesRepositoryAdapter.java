@@ -3,16 +3,16 @@ package com.api.covoshcoffe.promotion.infrastructure.output.persistence;
 import java.util.List;
 import java.util.Optional;
 
+import com.api.covoshcoffe.promotion.domain.ports.out.CuponesRepositoryPort;
 import org.springframework.stereotype.Component;
 
 import com.api.covoshcoffe.promotion.domain.model.Cupones;
-import com.api.covoshcoffe.promotion.domain.ports.out.CategoryRepositoryPort;
 import com.api.covoshcoffe.promotion.infrastructure.output.persistence.entity.CuponesEntity;
 import com.api.covoshcoffe.promotion.infrastructure.output.persistence.mapper.CuponesPersistenceMapper;
 import com.api.covoshcoffe.promotion.infrastructure.output.persistence.repository.SpringDataCuponesRepository;
 
 @Component
-public class CuponesRepositoryAdapter implements CategoryRepositoryPort {
+public class CuponesRepositoryAdapter implements CuponesRepositoryPort {
     private final SpringDataCuponesRepository springDataRepository;
 
     public CuponesRepositoryAdapter(SpringDataCuponesRepository springDataRepository) {

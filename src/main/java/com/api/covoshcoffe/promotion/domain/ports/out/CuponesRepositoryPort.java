@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.api.covoshcoffe.promotion.domain.model.Cupones;
 
-public interface CategoryRepositoryPort {
+public interface CuponesRepositoryPort {
     Cupones save(Cupones categoria);
 
     List<Cupones> findAll();

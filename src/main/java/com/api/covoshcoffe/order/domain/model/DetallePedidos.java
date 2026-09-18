@@ -1,14 +1,17 @@
 package com.api.covoshcoffe.order.domain.model;
 
+import com.api.covoshcoffe.catalog.domain.model.Medida;
+import com.api.covoshcoffe.catalog.domain.model.Producto;
+
 public record DetallePedidos(
         Integer id,
-        Integer pedidoId,
-        Integer productoId,
-        Integer medidaId,
+        Pedidos pedido,
+        Producto producto,
+        Medida medida,
         Integer cantidad,
         Double precioUnitario,
         Double subTotal) {
-    public DetallePedidos(Integer pedidoId, Integer productoId, Integer medidaId, Integer cantidad, Double precioUnitario) {
-        this(null, pedidoId, productoId, medidaId, cantidad, precioUnitario, cantidad * precioUnitario);
+    public DetallePedidos(Pedidos pedido, Producto producto, Medida medida, Integer cantidad, Double precioUnitario) {
+        this(null, pedido, producto, medida, cantidad, precioUnitario, precioUnitario * cantidad);
     }
 }

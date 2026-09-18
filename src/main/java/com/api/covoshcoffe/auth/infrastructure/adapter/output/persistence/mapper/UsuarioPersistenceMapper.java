@@ -7,7 +7,7 @@ import com.api.covoshcoffe.auth.infrastructure.adapter.output.persistence.entity
 
 @Component
 public class UsuarioPersistenceMapper {
-    public Usuario toDomain(UsuarioEntity entity) {
+    public static Usuario toDomain(UsuarioEntity entity) {
         if (entity == null)
             return null;
         return new Usuario(
@@ -24,7 +24,7 @@ public class UsuarioPersistenceMapper {
                 entity.getUpdatedAt());
     }
 
-    public UsuarioEntity toEntity(Usuario domain) {
+    public static UsuarioEntity toEntity(Usuario domain) {
         if (domain == null)
             return null;
         return new UsuarioEntity(

@@ -2,10 +2,10 @@ package com.api.covoshcoffe.order.domain.model;
 
 public record DetallePersonalizaciones(
         Integer id,
-        Integer detallePedidoId,
+        DetallePedidos detallePedidos,
         Integer opcionId
 ) {
-    public DetallePersonalizaciones(Integer detallePedidoId, Integer opcionId) {
-        this(null, detallePedidoId, opcionId);
+    public DetallePersonalizaciones(DetallePedidos detallePedidos, Integer opcionId) {
+        this(null, detallePedidos, opcionId);
     }
 }
