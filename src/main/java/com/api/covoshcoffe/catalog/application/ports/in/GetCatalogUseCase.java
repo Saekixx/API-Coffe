@@ -10,6 +10,8 @@ public interface GetCatalogUseCase {
 
     List<CategoryResponse> getActiveCategories();
 
+    CategoryResponse getCategoryById(Integer id);
+
     List<ProductResponse> getActiveProducts();
 
     List<ProductResponse> getProductsByCategory(Integer categoryId);

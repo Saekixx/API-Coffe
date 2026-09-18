@@ -52,7 +52,7 @@ public class LocalRepositoryAdapter implements LocalRepositoryPort {
 
     @Override
     public boolean existsByNombre(String nombre) {
-        return springDataRepository.existsByNombre(nombre);
+        return springDataRepository.existsByRazonSocial(nombre);
     }
 
 }

@@ -43,6 +43,13 @@ public class SecurityConfig {
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // Rutas de Swagger / OpenAPI liberadas
+                        .requestMatchers(
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/webjars/**").permitAll()
                         // Rutas publicas que no requieren autenticación
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/api/v1/catalog/**").permitAll()

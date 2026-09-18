@@ -9,5 +9,5 @@ import com.api.covoshcoffe.store.infrastructure.adapter.output.persistence.entit
 public interface SpringDataLocalRepository extends JpaRepository<LocalEntity, Integer> {
     List<LocalEntity> findAllByIsActiveTrue();
 
-    boolean existsByNombre(String nombre);
+    boolean existsByRazonSocial(String nombre);
 }

@@ -35,6 +35,14 @@ public class GetCatalogService implements GetCatalogUseCase {
     }
 
     @Override
+    public CategoryResponse getCategoryById(Integer id) {
+        var categoria = categoriaRepositoryPort.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada con el id: " + id));
+
+        return new CategoryResponse(categoria.id(), categoria.nombre(), categoria.isActive());
+    }
+
+    @Override
     public List<ProductResponse> getActiveProducts() {
         return productoRepositoryPort.findAllActive()
                 .stream()
@@ -71,6 +79,7 @@ public class GetCatalogService implements GetCatalogUseCase {
                 p.precioBase(),
                 p.imagenUrl(),
                 p.isActive(),
+                p.isNuevo(),
                 catResp);
     }
 

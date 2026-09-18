@@ -17,14 +17,14 @@ public class LocalEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    @Column
-    String nombre;
+    @Column(name = "razon_social")
+    String razonSocial;
 
     @Column
     String direccion;
 
-    @Column
-    String ciudad;
+    @Column(name = "horario")
+    String horario;
 
     @Column
     Double latitud;
@@ -32,12 +32,10 @@ public class LocalEntity {
     @Column
     Double longitud;
 
-    @Column(name = "hora_apertura")
-    LocalTime horarioApertura;
-
-    @Column(name = "hora_cierre")
-    LocalTime horarioCierre;
-
     @Column(name = "is_active")
     boolean isActive;
+
+    @ManyToOne
+    @JoinColumn(name = "idDistrito")
+    DistritoEntity distrito;
 }

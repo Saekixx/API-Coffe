@@ -7,30 +7,32 @@ public class LocalPersistenceMapper {
     public static Local toDomain(LocalEntity entity) {
         if (entity == null)
             return null;
+
         return new Local(
                 entity.getId(),
-                entity.getNombre(),
+                entity.getRazonSocial(),
                 entity.getDireccion(),
-                entity.getCiudad(),
                 entity.getLatitud(),
                 entity.getLongitud(),
-                entity.getHorarioApertura(),
-                entity.getHorarioCierre(),
-                entity.isActive());
+                entity.getHorario(),
+                entity.isActive(),
+                DistritoPersistenceMapper.toDomain(entity.getDistrito()));
     }
 
     public static LocalEntity toEntity(Local domain) {
         if (domain == null)
             return null;
-        return new LocalEntity(
-                domain.id(),
-                domain.nombre(),
-                domain.direccion(),
-                domain.ciudad(),
-                domain.latitud(),
-                domain.longitud(),
-                domain.horarioApertura(),
-                domain.horarioCierre(),
-                domain.isActive());
+
+        LocalEntity entity = new LocalEntity();
+        entity.setId(domain.id());
+        entity.setRazonSocial(domain.razonSocial());
+        entity.setDireccion(domain.direccion());
+        entity.setLatitud(domain.latitud());
+        entity.setLongitud(domain.longitud());
+        entity.setHorario(domain.horario());
+        entity.setActive(domain.isActive());
+        entity.setDistrito(DistritoPersistenceMapper.toEntity(domain.distrito()));
+
+        return entity;
     }
 }

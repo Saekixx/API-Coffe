@@ -34,6 +34,9 @@ public class ProductoEntity {
     @Column(name = "is_active")
     boolean isActive;
 
+    @Column(name = "is_nuevo")
+    boolean isNuevo;
+
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     CategoriaEntity categoria;

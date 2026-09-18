@@ -71,6 +71,7 @@ public class ManageProductService implements ManageProductUseCase {
                                 categoria,
                                 imagenUrl,
                                 true, // Nuevo producto activo por defecto
+                                true, // Nuevo producto marcado como nuevo por defecto
                                 grupos);
 
                 Producto guardado = productoRepositoryPort.save(producto);
@@ -105,6 +106,7 @@ public class ManageProductService implements ManageProductUseCase {
                                 categoria,
                                 imagenUrl,
                                 command.isActive(),
+                                command.isNuevo(),
                                 grupos);
 
                 Producto guardado = productoRepositoryPort.save(productoActualizado);
@@ -124,6 +126,7 @@ public class ManageProductService implements ManageProductUseCase {
                                 producto.categoria(),
                                 producto.imagenUrl(),
                                 !producto.isActive(),
+                                producto.isNuevo(),
                                 producto.grupos());
 
                 productoRepositoryPort.save(productoModificado);
@@ -144,6 +147,7 @@ public class ManageProductService implements ManageProductUseCase {
                                 p.precioBase(),
                                 p.imagenUrl(),
                                 p.isActive(),
+                                p.isNuevo(),
                                 catResp);
         }
 }

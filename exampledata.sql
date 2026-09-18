@@ -1,25 +1,31 @@
 use covoshcoffe_db;
 
--- 1. USUARIOS
+-- 1. DISTRITOS (Requerido para la FK de locales)
+insert into distritos (detalle) values
+('Miraflores'),
+('San Isidro'),
+('Surco');
+
+-- 2. USUARIOS
 insert into usuarios (nombre_completo, email, password_hash, proveedor_auth, rol, puntos) values
 ('Administrador Covosh', 'admin@covosh.com', '$2a$12$eImiTXuWVxfM37uY4JANjOL.8844Z1234567890abcdefghijklm', 'LOCAL', 'ADMIN', 0),
 ('Carlos Barista', 'barista.carlos@covosh.com', '$2a$12$eImiTXuWVxfM37uY4JANjOL.8844Z1234567890abcdefghijklm', 'LOCAL', 'BARISTA', 15),
 ('Ana Gómez', 'ana.gomez@gmail.com', '$2a$12$eImiTXuWVxfM37uY4JANjOL.8844Z1234567890abcdefghijklm', 'LOCAL', 'CLIENTE', 120),
 ('Luis Torres', 'ltorres@gmail.com', null, 'GOOGLE', 'CLIENTE', 45);
 
--- 2. LOCALES
-insert into locales (nombre, direccion, ciudad, latitud, longitud, hora_apertura, hora_cierre) values
-('Covosh - Miraflores', 'Av. José Larco 742', 'Lima', -12.12154300, -77.02987100, '07:00:00', '22:00:00'),
-('Covosh - San Isidro', 'Av. Víctor Andrés Belaúnde 147', 'Lima', -12.09541200, -77.03512300, '07:30:00', '21:00:00');
+-- 3. LOCALES (Ajustado al esquema de la tabla: razon_social, direccion, idDistrito, horario...)
+insert into locales (razon_social, direccion, idDistrito, horario, latitud, longitud) values
+('Covosh - Miraflores', 'Av. José Larco 742', 1, '07:00:00 - 22:00:00', -12.12154300, -77.02987100),
+('Covosh - San Isidro', 'Av. Víctor Andrés Belaúnde 147', 2, '07:30:00 - 21:00:00', -12.09541200, -77.03512300);
 
--- 3. CATEGORÍAS
+-- 4. CATEGORÍAS
 insert into categorias (nombre) values
 ('Cafés Calientes'),
 ('Bebidas Frías'),
 ('Postres y Repostería'),
 ('Sándwiches');
 
--- 4. PRODUCTOS
+-- 5. PRODUCTOS
 insert into productos (categoria_id, nombre, descripcion, precio_base, imagen_url) values
 (1, 'Espresso', 'Extracción intensa de granos seleccionados 100% arábica.', 7.00, 'https://silyqigsqwgsvbsawpfs.supabase.co/storage/v1/object/public/productos/7c704591-fa54-4635-935c-504063464fff.png'),
 (1, 'Cappuccino Tradicional', 'Espresso balanceado con leche vaporizada y suave capa de espuma.', 11.50, 'https://images.covosh.com/p/cappuccino.png'),
@@ -27,61 +33,65 @@ insert into productos (categoria_id, nombre, descripcion, precio_base, imagen_ur
 (3, 'Croissant de Almendras', 'Hojaldre artesanal relleno de crema de almendras horneada.', 9.50, 'https://images.covosh.com/p/croissant.png'),
 (4, 'Sándwich Caprese', 'Pan ciabatta, queso mozzarella, tomate y salsa pesto.', 16.00, 'https://images.covosh.com/p/caprese.png');
 
--- 5. MEDIDAS
+-- 6. MEDIDAS
 insert into medidas (nombre, volumen_ml, precio_adicional) values
 ('Pequeño (8 oz)', 240, 0.00),
 ('Mediano (12 oz)', 355, 2.50),
 ('Grande (16 oz)', 470, 4.00);
 
--- 6. GRUPOS DE PERSONALIZACIÓN
-insert into grupos_personalizacion (nombre, es_obligatorio, max_seleccion) values
-('Tipo de Leche', false, 1),
-('Nivel de Dulzor', false, 1),
-('Toppings y Extras', false, 3);
+-- 7. GRUPOS DE PERSONALIZACIÓN (Extraídos directamente de la interfaz)
+insert into grupos_personalizacion (id, nombre, es_obligatorio, max_seleccion) values
+(1, 'Leche', true, 1),          -- Pick 1 (Radio)
+(2, 'Crema Batida', true, 1),   -- Pick 1 (Radio)
+(3, 'Cafeína', false, 1);        -- Checkbox opcional
 
--- 7. OPCIONES DE PERSONALIZACIÓN
+-- 8. OPCIONES DE PERSONALIZACIÓN (Valores e incrementos según la imagen)
 insert into opciones_personalizacion (grupo_id, nombre, precio_adicional) values
-(1, 'Leche Entera', 0.00),
-(1, 'Leche Descremada', 0.00),
-(1, 'Leche de Avena', 3.00),
-(1, 'Leche de Almendras', 3.00),
-(2, 'Sin Azúcar', 0.00),
-(2, '50% Dulce', 0.00),
-(2, '100% Dulce (Normal)', 0.00),
-(3, 'Crema Batida', 2.00),
-(3, 'Shot Extra de Espresso', 3.50);
+-- Grupo 1: Leche
+(1, 'Leche entera', 0.00),
+(1, 'Leche sin lactosa', 0.00),
+(1, 'Leche de soya', 0.00),
+(1, 'Leche descremada', 0.00),
+(1, 'Leche de almendras', 0.70),
+(1, 'Leche de avena', 0.70),
 
--- 8. PRODUCTO_GRUPOS
+-- Grupo 2: Crema Batida
+(2, 'Sin crema batida', 0.00),
+(2, 'Con crema batida', 0.50),
+
+-- Grupo 3: Cafeína
+(3, '¿Sin cafeína?', 0.00);
+
+-- 9. PRODUCTO_GRUPOS (Asociando personalizaciones a Cappuccino e Iced Latte)
 insert into producto_grupos (producto_id, grupo_id) values
 (2, 1), (2, 2), (2, 3), -- Cappuccino
-(3, 1), (3, 2), (3, 3); -- Iced Latte
+(3, 1), (3, 2), (3, 3); -- Iced Caramel Latte
 
--- 9. CUPONES
--- Corregido: 'descuento_monto' por 'descuento' (según la definición del schema)
+-- 10. CUPONES
 insert into cupones (codigo, descuento, fecha_expiracion, activo) values
 ('BIENVENIDA10', 5.00, '2026-12-31 23:59:59', true),
 ('PROMOCOVOSH', 3.00, '2026-12-31 23:59:59', true);
 
--- 10. PEDIDOS
--- Corregido: Subtotal (17.00) - Descuento (5.00) = Total (12.00)
-insert into pedidos (usuario_id, local_id, cupon_id, metodo_entrega, fecha_programada, hora_programada, subtotal, descuento, total, estado) values
-(3, 1, 1, 'EN_LOCAL', '2026-08-30', '09:30:00', 17.00, 5.00, 12.00, 'LISTO');
+-- 11. PEDIDOS
+-- Cálculo: Subtotal (14.70) - Descuento (5.00) = Total (9.70) | items_total = 1
+insert into pedidos (usuario_id, local_id, cupon_id, metodo_entrega, fecha_programada, hora_programada, subtotal, descuento, total, items_total, estado) values
+(3, 1, 1, 'EN_LOCAL', '2026-08-30', '09:30:00', 14.70, 5.00, 9.70, 1, 'LISTO');
 
--- 11. DETALLE DE PEDIDOS
--- Corregido: Precio unitario = Cappuccino Base (11.50) + Mediano (2.50) + Leche Avena (3.00) = 17.00
+-- 12. DETALLE DE PEDIDOS
+-- Cappuccino Base (11.50) + Mediano (2.50) + Leche Avena (0.70) = 14.70
 insert into detalle_pedidos (pedido_id, producto_id, medida_id, cantidad, precio_unitario, subtotal) values
-(1, 2, 2, 1, 17.00, 17.00); 
+(1, 2, 2, 1, 14.70, 14.70);
 
--- 12. DETALLE DE PERSONALIZACIONES
+-- 13. DETALLE DE PERSONALIZACIONES (Asigna 'Leche de avena' ID=6 y 'Sin crema batida' ID=7)
 insert into detalle_personalizaciones (detalle_pedido_id, opcion_id) values
-(1, 3); -- Leche de Avena (+3.00)
+(1, 6),
+(1, 7);
 
--- 13. PAGOS
--- Corregido: Monto ajustado al total real calculado (12.00)
+-- 14. PAGOS
 insert into pagos (pedido_id, metodo, proveedor_tarjeta, ultimos_4_digitos, monto, estado_pago) values
-(1, 'TARJETA', 'VISA', '4242', 12.00, 'COMPLETADO');
+(1, 'TARJETA', 'VISA', '4242', 9.70, 'COMPLETADO');
 
--- 14. FAVORITOS
+-- 15. FAVORITOS
 insert into favoritos (usuario_id, producto_id) values
 (3, 2),
 (3, 3);

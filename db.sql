@@ -16,16 +16,21 @@ create table usuarios (
     updated_at timestamp default current_timestamp on update current_timestamp
 );
 
+create table distritos(
+	id int auto_increment primary key,
+    detalle varchar(50) not null
+);
+
 create table locales (
     id int auto_increment primary key,
-    nombre varchar(100) not null,
+    razon_social varchar(100) not null,
     direccion varchar(255) not null,
-    ciudad varchar(100) not null,
+    idDistrito int not null,
+    horario varchar(100) not null,
     latitud decimal(10, 8),
     longitud decimal(11, 8),
-    hora_apertura time,
-    hora_cierre time,
-    is_active boolean default true
+    is_active boolean default true,
+    foreign key (idDistrito) references distritos(id)
 );
 
 create table categorias (
@@ -42,6 +47,7 @@ create table productos (
     precio_base decimal(8, 2) not null,
     imagen_url varchar(255),
     is_active boolean default true,
+    is_nuevo boolean default true,
     foreign key (categoria_id) references categorias(id)
 );
 
@@ -83,6 +89,7 @@ create table cupones (
     descuento decimal(8, 2) default 0.00,
     limite_usos int default null,
     usos_actuales int default 0,
+    fecha_expiracion timestamp not null,
     activo boolean default true
 );
 
@@ -92,13 +99,13 @@ create table pedidos (
     local_id int not null,
     cupon_id int null,
     metodo_entrega enum('EN_LOCAL', 'DELIVERY') not null,
-    fecha_programada date,
-    hora_programada time,
+    fecha_entrega datetime null,
     subtotal decimal(8, 2) not null,
     descuento decimal(8, 2) default 0.00,
     total decimal(8, 2) not null,
-    estado enum('PEDIDO_REALIZADO', 'EN_PREPARACION', 'LISTO', 'EN_CAMINO', 'ENTREGADO', 'CANCELADO') default 'PEDIDO_REALIZADO',
-    creado_en timestamp default current_timestamp,
+    items_total int not null,
+    estado enum('PENDIENTE', 'EN_PREPARACION', 'LISTO', 'EN_CAMINO', 'ENTREGADO', 'CANCELADO') default 'PENDIENTE',
+    created_at timestamp default current_timestamp,
     foreign key (usuario_id) references usuarios(id),
     foreign key (local_id) references locales(id),
     foreign key (cupon_id) references cupones(id)
@@ -109,9 +116,9 @@ create table detalle_pedidos (
     pedido_id int not null,
     producto_id int not null,
     medida_id int not null,
-    cantidad int not null,
-    precio_unitario decimal(8, 2) not null,
-    subtotal decimal(8, 2) not null,
+    cantidad tinyint unsigned not null default 1,
+    precio_unitario decimal(10, 2) not null,
+    subtotal decimal(10, 2) generated always as (cantidad * precio_unitario) stored,
     foreign key (pedido_id) references pedidos(id) on delete cascade,
     foreign key (producto_id) references productos(id),
     foreign key (medida_id) references medidas(id)
@@ -128,11 +135,11 @@ create table detalle_personalizaciones (
 create table pagos (
     id int auto_increment primary key,
     pedido_id int not null,
-    metodo enum('TARJETA', 'EFECTIVO', 'PAYPAL') not null,
-    proveedor_tarjeta varchar(50), -- ej: visa, mastercard
+    metodo enum('TARJETA_CREDITO', 'TARJETA_DEBITO', 'PAYPAL','TRANSFERENCIA_BANCARIA') not null,
+    proveedor varchar(50), -- ej: visa, mastercard
     ultimos_4_digitos varchar(4),
     monto decimal(8, 2) not null,
-    estado_pago enum('PENDIENTE', 'COMPLETADO', 'FALLIDO') default 'COMPLETADO',
+    estado_pago enum('PENDIENTE', 'COMPLETADO', 'FALLIDO', 'REEMBOLSO') default 'PENDIENTE',
     pagado_en timestamp default current_timestamp,
     foreign key (pedido_id) references pedidos(id)
 );

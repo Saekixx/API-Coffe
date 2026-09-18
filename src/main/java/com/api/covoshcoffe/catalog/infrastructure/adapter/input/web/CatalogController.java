@@ -28,19 +28,24 @@ public class CatalogController {
         return ResponseEntity.ok(ResponseGlobal.success(getCatalogUseCase.getActiveCategories()));
     }
 
+    @GetMapping("/categories/{idCategorie}")
+    public ResponseEntity<ResponseGlobal<CategoryResponse>> getCategoryById(@PathVariable Integer idCategorie) {
+        return ResponseEntity.ok(ResponseGlobal.success(getCatalogUseCase.getCategoryById(idCategorie)));
+    }
+
     @GetMapping("/products")
     public ResponseEntity<ResponseGlobal<List<ProductResponse>>> getActiveProducts() {
         return ResponseEntity.ok(ResponseGlobal.success(getCatalogUseCase.getActiveProducts()));
     }
 
-    @GetMapping("/categories/{categoryId}")
+    @GetMapping("/products/{idProducto}")
+    public ResponseEntity<ResponseGlobal<ProductDetalleResponse>> getProductById(@PathVariable Integer id) {
+        return ResponseEntity.ok(ResponseGlobal.success(getCatalogUseCase.getProductById(id)));
+    }
+
+    @GetMapping("/productos/categories/{categoryId}")
     public ResponseEntity<ResponseGlobal<List<ProductResponse>>> getProductsByCategory(
             @PathVariable Integer categoryId) {
         return ResponseEntity.ok(ResponseGlobal.success(getCatalogUseCase.getProductsByCategory(categoryId)));
-    }
-
-    @GetMapping("/products/{id}")
-    public ResponseEntity<ResponseGlobal<ProductDetalleResponse>> getProductById(@PathVariable Integer id) {
-        return ResponseEntity.ok(ResponseGlobal.success(getCatalogUseCase.getProductById(id)));
     }
 }
