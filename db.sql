@@ -48,6 +48,7 @@ create table productos (
     imagen_url varchar(255),
     is_active boolean default true,
     is_nuevo boolean default true,
+    is_frecuente boolean default false,
     foreign key (categoria_id) references categorias(id)
 );
 

@@ -10,6 +10,7 @@ public record Producto(
         Categoria categoria,
         String imagenUrl,
         boolean isActive,
+        boolean isFrecuente,
         boolean isNuevo,
         Set<GrupoPersonalizacion> grupos) {
 
@@ -18,6 +19,6 @@ public record Producto(
     }
 
     public Producto(String nombre, String descripcion, Double precioBase, Categoria categoria, String imagenUrl) {
-        this(null, nombre, descripcion, precioBase, categoria, imagenUrl, true, true, Set.of());
+        this(null, nombre, descripcion, precioBase, categoria, imagenUrl, true, false, true, Set.of());
     }
 }

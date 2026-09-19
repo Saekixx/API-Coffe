@@ -71,6 +71,7 @@ public class ManageProductService implements ManageProductUseCase {
                                 categoria,
                                 imagenUrl,
                                 true, // Nuevo producto activo por defecto
+                                false, // Nuevo producto no frecuente por defecto
                                 true, // Nuevo producto marcado como nuevo por defecto
                                 grupos);
 
@@ -106,6 +107,7 @@ public class ManageProductService implements ManageProductUseCase {
                                 categoria,
                                 imagenUrl,
                                 command.isActive(),
+                                existente.isFrecuente(),
                                 command.isNuevo(),
                                 grupos);
 
@@ -126,6 +128,7 @@ public class ManageProductService implements ManageProductUseCase {
                                 producto.categoria(),
                                 producto.imagenUrl(),
                                 !producto.isActive(),
+                                producto.isFrecuente(),
                                 producto.isNuevo(),
                                 producto.grupos());
 

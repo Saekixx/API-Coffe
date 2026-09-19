@@ -28,6 +28,7 @@ public class ProductoPersistenceMapper {
                 CategoriaPersistenceMapper.toDomain(entity.getCategoria()),
                 entity.getImagenUrl(),
                 entity.isActive(),
+                entity.isFrecuente(),
                 entity.isNuevo(),
                 grupos);
     }
@@ -49,6 +50,7 @@ public class ProductoPersistenceMapper {
                 domain.precioBase(),
                 domain.imagenUrl(),
                 domain.isActive(),
+                domain.isFrecuente(),
                 domain.isNuevo(),
                 CategoriaPersistenceMapper.toEntity(domain.categoria()),
                 gruposEntities);

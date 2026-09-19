@@ -1,5 +1,6 @@
 package com.api.covoshcoffe.auth.infrastructure.adapter.output.persistence;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -18,6 +19,14 @@ public class UsuarioRepositoryAdapter implements UsuarioRepositoryPort {
             UsuarioPersistenceMapper usuarioMapper) {
         this.usuarioRepository = usuarioRepository;
         this.usuarioMapper = usuarioMapper;
+    }
+
+    @Override
+    public List<Usuario> findAll() {
+        var entities = usuarioRepository.findAll();
+        return entities.stream()
+                .map(UsuarioPersistenceMapper::toDomain)
+                .toList();
     }
 
     @Override
