@@ -7,6 +7,7 @@ public record ProductoDto(
         Double precio,
         Integer idCategoria,
         Integer nuevo,
-        Integer frecuente) {
+        Integer frecuente
+) {
 
 }

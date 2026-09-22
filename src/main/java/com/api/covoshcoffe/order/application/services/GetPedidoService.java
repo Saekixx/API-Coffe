@@ -6,7 +6,9 @@ import java.util.List;
 import com.api.covoshcoffe.order.application.dtos.response.PedidoDto;
 import com.api.covoshcoffe.order.application.ports.in.GetPedidoUseCase;
 import com.api.covoshcoffe.order.domain.ports.out.PedidoRepositoryPort;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GetPedidoService implements GetPedidoUseCase {
     private final PedidoRepositoryPort pedidoRepositoryPort;
     // Formatea la fecha de entrega

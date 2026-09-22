@@ -1,6 +1,7 @@
 package com.api.covoshcoffe.auth.domain.model;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public record Usuario(
         Integer id,
@@ -12,6 +13,7 @@ public record Usuario(
         Integer puntos,
         boolean isActive,
         Rol rol,
+        Set<Integer> favoritos,
         LocalDateTime createdAt,
         LocalDateTime updatedAt) {
 
@@ -26,7 +28,10 @@ public record Usuario(
                 0,
                 true,
                 Rol.CLIENTE,
+                Set.of(),
                 null,
                 null);
     }
+
+
 }

@@ -19,6 +19,6 @@ public record Producto(
     }
 
     public Producto(String nombre, String descripcion, Double precioBase, Categoria categoria, String imagenUrl) {
-        this(null, nombre, descripcion, precioBase, categoria, imagenUrl, true, false, true, Set.of());
+        this(null, nombre, descripcion, precioBase, categoria, imagenUrl, true, false, true,  Set.of());
     }
 }

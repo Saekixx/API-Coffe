@@ -3,6 +3,8 @@ package com.api.covoshcoffe.catalog.infrastructure.adapter.output.persistence;
 import java.util.List;
 import java.util.Optional;
 
+import com.api.covoshcoffe.catalog.domain.dtos.ProductoGrupoDto;
+import com.api.covoshcoffe.catalog.domain.dtos.ProductsWithFavoritesDto;
 import org.springframework.stereotype.Component;
 
 import com.api.covoshcoffe.catalog.domain.model.Producto;
@@ -41,6 +43,11 @@ public class ProductoRepositoryAdapter implements ProductoRepositoryPort {
     }
 
     @Override
+    public List<ProductsWithFavoritesDto> findAllWithFavorites(Integer usuarioId) {
+        return springDataRepository.findAllWithFavoritesByUsuarioIdNative(usuarioId);
+    }
+
+    @Override
     public List<Producto> findAllActive() {
         return springDataRepository.findByIsActiveTrue()
                 .stream()
@@ -54,6 +61,11 @@ public class ProductoRepositoryAdapter implements ProductoRepositoryPort {
                 .stream()
                 .map(ProductoPersistenceMapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public List<ProductoGrupoDto> findAllWithGruposAndOpciones() {
+        return springDataRepository.findAllProductoGruposDto();
     }
 
     @Override

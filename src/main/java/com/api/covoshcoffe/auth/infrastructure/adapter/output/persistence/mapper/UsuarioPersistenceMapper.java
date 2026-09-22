@@ -20,6 +20,7 @@ public class UsuarioPersistenceMapper {
                 entity.getPuntos(),
                 entity.isActive(),
                 entity.getRol(),
+                entity.getFavoritos(),
                 entity.getCreatedAt(),
                 entity.getUpdatedAt());
     }
@@ -37,6 +38,7 @@ public class UsuarioPersistenceMapper {
                 domain.puntos(),
                 domain.isActive(),
                 domain.rol(),
+                domain.favoritos(),
                 domain.createdAt(),
                 domain.updatedAt());
     }

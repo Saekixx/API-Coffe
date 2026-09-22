@@ -5,7 +5,9 @@ import java.util.List;
 import com.api.covoshcoffe.store.application.dto.response.LocalDto;
 import com.api.covoshcoffe.store.application.ports.GetLocalUseCase;
 import com.api.covoshcoffe.store.domain.ports.out.LocalRepositoryPort;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GetLocalService implements GetLocalUseCase {
     private final LocalRepositoryPort localRepositoryPort;
 

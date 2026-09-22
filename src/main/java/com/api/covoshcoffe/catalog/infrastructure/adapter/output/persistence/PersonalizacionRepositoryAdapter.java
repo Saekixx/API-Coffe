@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.api.covoshcoffe.catalog.domain.dtos.OpcionPersonalizacionDto;
 import org.springframework.stereotype.Component;
 
 import com.api.covoshcoffe.catalog.domain.model.GrupoPersonalizacion;
@@ -68,5 +69,10 @@ public class PersonalizacionRepositoryAdapter implements PersonalizacionReposito
     public Optional<OpcionPersonalizacion> findOptionById(Integer id) {
         return opcionRepository.findById(id)
                 .map(PersonalizacionPersistenceMapper::toDomain);
+    }
+
+    @Override
+    public List<OpcionPersonalizacionDto> getOpcionPersonalizacion() {
+        return opcionRepository.findAllOpcionesDto();
     }
 }

@@ -1,6 +1,8 @@
 package com.api.covoshcoffe.auth.infrastructure.adapter.output.persistence.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -48,6 +50,14 @@ public class UsuarioEntity {
 
     @Enumerated(EnumType.STRING)
     private Rol rol;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(
+            name = "favoritos",
+            joinColumns = @JoinColumn(name = "usuario_id")
+    )
+    @Column(name = "producto_id")
+    private Set<Integer> favoritos = new HashSet<>();
 
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")

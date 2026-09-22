@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import com.api.covoshcoffe.catalog.domain.dtos.OpcionPersonalizacionDto;
 import com.api.covoshcoffe.catalog.domain.model.GrupoPersonalizacion;
 import com.api.covoshcoffe.catalog.domain.model.OpcionPersonalizacion;
 
@@ -13,6 +14,8 @@ public interface PersonalizacionRepositoryPort {
     OpcionPersonalizacion saveOption(OpcionPersonalizacion opcion);
 
     List<GrupoPersonalizacion> findAllActiveGroups();
+
+    List<OpcionPersonalizacionDto> getOpcionPersonalizacion();
 
     Set<GrupoPersonalizacion> findByIds(List<Integer> ids);
 
